@@ -17,8 +17,8 @@ Including another URLconf
 #from django.contrib import admin
 #from django.conf.urls import include
 from django.urls import path
-from index import views
+from registr import views
 
 urlpatterns = [
-    path('', views.index, name='index')#views - принимает запрос от сервера, index - название функции в файле views
+    path('', views.registr, name='registr')#views - принимает запрос от сервера, registr - название функции в файле views
 ]

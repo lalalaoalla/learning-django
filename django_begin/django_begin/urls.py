@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
+#from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('',include('index.urls')),#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
-    path('catalog/',include('index.urls'))
+    path('index/',include('index.urls')),#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
+    path('catalog/',include('catalog.urls')),
+    path('login/',include('login.urls')),
+    path('registr/',include('registr.urls'))
 ]
