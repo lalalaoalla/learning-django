@@ -20,5 +20,6 @@ from django.urls import path
 from index import views
 
 urlpatterns = [
-    path('', views.index, name='index')#views - принимает запрос от сервера, index - название функции в файле views
+    path('', views.index, name='index'),
+    path('', views.catalog, name='catalog')#views - принимает запрос от сервера, index - название функции в файле views
 ]

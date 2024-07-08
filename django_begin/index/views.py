@@ -6,3 +6,5 @@ def index(request):
     нашей html-странички'''
     return render(request,'index.html', locals())
 
+def catalog(request):
+    return render(request,'products.html', locals())

@@ -20,5 +20,6 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('',include('index.urls'))#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
+    path('',include('index.urls')),#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
+    path('catalog/',include('index.urls'))
 ]
