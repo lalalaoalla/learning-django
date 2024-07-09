@@ -19,6 +19,8 @@ from django.conf.urls import include
 from django.urls import path
 #from django.contrib.auth import views as auth_views
 
+admin.autodiscover()#типа строчка для того, чтобы мы смогли добавлять наши таблицы
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('index/',include('index.urls')),#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
