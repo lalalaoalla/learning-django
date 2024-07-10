@@ -14,4 +14,7 @@ class User(models.Model):#типа мы так описываем таблицу
 
     def __str__(self):#в данном случае эта функция показывает, что должно высвечиваться в таблице
             return"%s %s никнейм %s" % (self.firstname, self.name, self.nickname)#высвечивает 2(в нашем случае) и более(продолжаем %s) и наши поля после процента
-        
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'       
