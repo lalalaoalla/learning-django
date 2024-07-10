@@ -26,5 +26,7 @@ urlpatterns = [
     path('index/',include('index.urls')),#то есть, в папке индекс лежит наш файл urls, то есть следующие url смотри там
     path('catalog/',include('catalog.urls')),
     path('login/',include('login.urls')),
-    path('registr/',include('registr.urls'))
+    path('registr/',include('registr.urls')),
+    path('orders/',include('orders.urls')),
+    path('my_profile/',include('my_profile.urls')),
 ]
