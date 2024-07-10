@@ -30,7 +30,10 @@ class Product(models.Model):#типа мы так описываем табли�
 
 
     def __str__(self):#в данном случае эта функция показывает, что должно высвечиваться в таблице
-            return"Заказ %s" % self.id
+            return" %s" % self.name
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
 
 class ImagesInProduct(models.Model):
@@ -39,6 +42,8 @@ class ImagesInProduct(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)#дата добавления заказа
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)#дата обновления чего-нибудь в таблице?
 
+    def __str__(self):
+        return "Фотографии для заказа %s" % self.product.name
     class Meta:
         verbose_name = 'Фото товара'
         verbose_name_plural = 'Фото товаров'
