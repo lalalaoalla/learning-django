@@ -15,6 +15,6 @@ class UserForm(forms.ModelForm):
         'class': 'form-control py-4', 'placeholder': 'Введите пароль'}))
 
     class Meta:
-        model = Users
+        model = User
         #fields = [''] - поля которые нужно включить
         exclude = ['']#поля которые нужно исключить, пишем обычно что-то одно
