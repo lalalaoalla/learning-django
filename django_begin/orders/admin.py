@@ -36,8 +36,11 @@ class ProductInBasketAdmin(admin.ModelAdmin):
 
     class Meta:
         model = ProductInBasket
-# admin.site.register(User, UserAdmin)#типа наш класс UserAdmin перезапишет с теми полями, которые нам нужны
 
+
+admin.site.register(Status, StatusAdmin)#типа наш класс UserAdmin перезапишет с теми полями, которые нам нужны
+admin.site.register(MakingAnOrder, MakingAnOrderAdmin)
+admin.site.register(ProductInBasket, ProductInBasketAdmin)
 # #ЕСЛИ СИЛЬНО ЗАХОЧЕТСЯ:
 
 # #выводит лишь одно единственное поле - users, в файле registr/models.py - написано то, что мы хотим
