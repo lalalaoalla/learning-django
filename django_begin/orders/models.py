@@ -4,6 +4,8 @@ from django.db import models
 from catalog.models import Product
 
 
+
+
 class Status(models.Model):
     '''Статус заказа'''
     name = models.CharField(max_length=24)
@@ -48,6 +50,9 @@ class ProductInBasket(models.Model):#здесь я еще подумаю, сто
     содержит связь с оформлением заказа, а также мы берем названия из таблицы с товарами'''
     order = models.ForeignKey(MakingAnOrder, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)#модели товара еще нет, но они связаны
+    quantity = models.IntegerField(blank=True, null=True, default=1)
+    price_one_product =models.FloatField(default=1)
+    total_price = models.FloatField(default=1)#price* quantity
     is_active = models.BooleanField(default=True)#типа что заказ можем отменить ес что
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
