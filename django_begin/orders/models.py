@@ -2,6 +2,7 @@
 #наша база данных(корзина короче у нас тут да), будет содеражть данные поля:
 from django.db import models
 from catalog.models import Product
+from django.db.models.signals import post_save
 
 
 
@@ -34,6 +35,7 @@ class MakingAnOrder(models.Model):#таблица с оформленным за
     email = models.EmailField()
     address = models.CharField(max_length=512)
     status = models.ForeignKey(Status, default=True, on_delete=models.DO_NOTHING)
+    total_price_in_order = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)#дата добавления заказа
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)#дата обновления чего-нибудь в таблице?
 
@@ -44,6 +46,8 @@ class MakingAnOrder(models.Model):#таблица с оформленным за
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+    def save(self,*args,**kwargs):
+        super(MakingAnOrder, self).save(*args,**kwargs)
         
 class ProductInBasket(models.Model):#здесь я еще подумаю, стоит может order перенести в другой класс
     '''СОДЕРЖИМОЕ КОРЗИНЫ
@@ -58,8 +62,28 @@ class ProductInBasket(models.Model):#здесь я еще подумаю, сто
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-       return "%s" % self.product.name
+        return "%s" % self.product.name
 
     class Meta:
         verbose_name = 'Товар в корзине'
         verbose_name_plural = 'Товары в корзине'
+    def save(self,*args,**kwargs):
+        price_one_product = self.product.price
+        self.price_one_product = price_one_product
+        self.total_price = self.quantity* price_one_product
+        super(ProductInBasket, self).save(*args,**kwargs)
+
+def product_in_order_post_save(sender, instance,created,**kwargs):
+        order = instance.order#вместо self надо писать instance
+        all_products_in_order = ProductInBasket.objects.filter(order = order,is_active=True)
+
+        total_price_in_order = 0
+        for item in all_products_in_order:
+            total_price_in_order+=item.total_price
+
+        order.total_price_in_order = total_price_in_order
+        order.save(force_update=True)
+
+post_save.connect(product_in_order_post_save, sender = ProductInBasket)
+
+    
