@@ -56,42 +56,53 @@
             </div>
 
             <div class="row">
-                {% if category_two %}
-                {% for product_image in category_clothes %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ product_image.image.url }}"
-                                 alt="">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">{{product_image.product.name}}</a>
-                            </h4>
-                            <h5>{{product_image.product.price}} руб.</h5>
-                            <p class="card-text">{{product_image.product.discription|truncatechars_html:100}}</p>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                {% if category_products %}
+                    {% for product_image in page.object_list %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#">
+                                <img class="card-img-top"
+                                    src="{{ product_image.image.url }}"
+                                    alt="">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{product_image.product.name}}</a>
+                                </h4>
+                                <h5>{{product_image.product.price}} руб.</h5>
+                                <p class="card-text">{{product_image.product.discription|truncatechars_html:100}}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {%endfor%}
-                {%endif%}
+                    {% endfor %}
+                {% endif %}
+                
+
                 
             <nav aria-label="Page navigation example">
+                {% if page.has_other_pages %}
                 <ul class="pagination justify-content-center">
+
+                    {% if page.has_previous %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        <a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    {%endif%}
+
+                    {% for num in page.paginator.page_range %}
+                    <li {% if page.number == num %} class="active" {% endif %}class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endfor %}
+                    
+                    {% if page.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
+                        <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
                     </li>
+                    {% endif %}
                 </ul>
+                {% endif %}
             </nav>
 
         </div>
